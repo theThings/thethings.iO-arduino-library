@@ -47,9 +47,9 @@ void TheThings::addValue(String key, double value) {
 }
 
 String TheThings::send() {
-    data = "";
     String received = "";
     if (POST(client, "/v2/things/" + token, "{\"values\":[" + data + "]}")) {
+        data = "";
         delay(1000);
         while (client.available()) {
             char c = (char)client.read();
@@ -61,6 +61,7 @@ String TheThings::send() {
 
 bool TheThings::POST(EthernetClient &client, String url, String &data) {
     client.flush();
+    client.stop();
     if (client.connected() || client.connect(server, 80)) {
         client.print("POST " + url + " HTTP/1.1\n");
         client.print("Host: api.thethings.io\n");
@@ -105,7 +106,7 @@ void TheThings::subscribe() {
     GET(subscription_client, "/v2/things/" + token);
 }
 
-bool TheThings::available() {
+int TheThings::available() {
     return subscription_client.available();
 }
 

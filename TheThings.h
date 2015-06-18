@@ -47,7 +47,7 @@ public:
     String read(String, int);
 
     void subscribe();
-    bool available();
+    int available();
     String read();
 
 private:
