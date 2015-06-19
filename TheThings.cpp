@@ -106,6 +106,10 @@ void TheThings::subscribe() {
     GET(subscription_client, "/v2/things/" + token);
 }
 
+bool TheThings::subscribed() {
+    return subscription_client.connected();
+}
+
 int TheThings::available() {
     return subscription_client.available();
 }
