@@ -6,7 +6,7 @@
 
 #define ACTIVATION_CODE "your activation code here"
 
-TheThings thing;
+TheThingsEthernet thing;
 const int led = 3;
 
 void setup() {

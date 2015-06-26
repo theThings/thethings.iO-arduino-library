@@ -4,7 +4,7 @@
 
 #define TOKEN "your token here"
 
-TheThings thing(TOKEN);
+TheThingsEthernet thing(TOKEN);
 
 void setup() {
     // Start Serial for debugging on the Serial Monitor

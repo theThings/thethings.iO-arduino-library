@@ -2,16 +2,37 @@
 
 Arduino library and examples to connect to http://thethings.iO
 
+## Installation
+
+Clone this repository and copy or link the TheTings folder in your arduino library folder
+
 ## Library Reference
 
-Before using this library, the Ethernet should be initialized with `Ethernet.begin()`.
+If you want to use the Ethernet client you should `#include <SPI.h>` `#include <Ethernet.h>` before including this library. If you want to use the GSM client do `#include <GSM.h>`. Then include this library with `#include <TheThings.h>`. Before using any client from this library, the Ethernet or GSM shield should be initialized.
 
 ```Arduino
-TheThings();
-TheThings(String token);
+// Initialize Ethernet
+while (Ethernet.begin(mac) == 0)
+    Serial.println("DHCP Failed, retrying");
+Serial.println("Arduino connected to network using DHCP");
 ```
 
-Create a new TheThings object. The first form is used to activate new things with the `activate(String)` method. The second form sets the token for an already activated thing.
+```Arduino
+// Initialize GSM
+while (!((gsmAccess.begin(PINNUMBER) == GSM_READY) & (gprs.attachGPRS(GPRS_APN, GPRS_LOGIN, GPRS_PASSWORD) == GPRS_READY)))
+    Serial.println("Connection failed, retrying");
+Serial.println("Arduino connected to network");
+```
+
+```Arduino
+TheThingsEthernet();
+TheThingsGSM();
+
+TheThingsEthernet(String token);
+TheThingsGSM(String token);
+```
+
+Create a new client. The first form is used to activate new things with the `activate(String)` method. The second form sets the token for an already activated thing.
 
 ```Arduino
 String activate(String activationCode);
