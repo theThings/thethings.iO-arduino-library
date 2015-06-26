@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+        <script>
+
+var tokens = [ "first token here", "second token here" ];
+function setLedState(led, on) {
+    var open = on ? "ON" : "OFF";
+    var token = "";
+    if (led - 1 < tokens.length) token = tokens[led - 1];
+    if (token) {
+        var url = "https://api.thethings.io/v2/things/" + token;
+        var data = { values: [ { key: "LED", value: open } ] };
+        $.post(url, data);
+    }
+}
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xs-6"><button type="button" class="btn btn-primary" onclick="setLedState(1, true);">LED 1 ON</button></div>
+                <div class="col-xs-6"><button type="button" class="btn btn-primary" onclick="setLedState(1, false);">LED 1 OFF</button></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6"><button type="button" class="btn btn-primary" onclick="setLedState(2, true);">LED 2 ON</button></div>
+                <div class="col-xs-6"><button type="button" class="btn btn-primary" onclick="setLedState(2, false);">LED 2 OFF</button></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6"><button type="button" class="btn btn-primary" onclick="setLedState(1, true); setLedState(2, true);">TWO LEDS ON</button></div>
+                <div class="col-xs-6"><button type="button" class="btn btn-primary" onclick="setLedState(1, false); setLedState(2, false);">TWO LEDS OFF</button></div>
+            </div>
+
+        </div>
+    </body>
+</html>
