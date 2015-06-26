@@ -1,17 +1,17 @@
-// Copyright (c) 2015 TheThings.iO
+// Copyright (c) 2015 TheThingsClient.iO
 // This file is licensed under the MIT License
 // http://opensource.org/licenses/MIT
 
-#ifndef THETHINGS_H
-#define THETHINGS_H
+#ifndef TEHTHINGSCLIENT_H
+#define TEHTHINGSCLIENT_H
 
-#include "Arduino.h"
-#include "Ethernet.h"
+#include <Arduino.h>
+#include <Client.h>
 
-class TheThings {
+class TheThingsClient {
 public:
-    TheThings();
-    TheThings(String);
+    TheThingsClient(Client *, Client *);
+    TheThingsClient(Client *, Client *, String &);
 
     // Create a new thing passing it's existing token as an argument or leave
     // it empty to activate it later using "activate" function.
@@ -51,16 +51,16 @@ public:
     int available();
     String read();
 
-private:
+protected:
     String token;
     String data;
-    EthernetClient client;
-    EthernetClient subscription_client;
+    Client *regular_client;
+    Client *subscription_client;
     static byte server[];
 
     // Private functions
-    bool POST(EthernetClient &, String, String &);
-    bool GET(EthernetClient &, String &);
+    bool POST(Client *, String, String &);
+    bool GET(Client *, String &);
 };
 
-#endif // THETHINGS_H
+#endif // TEHTHINGSCLIENT_H
