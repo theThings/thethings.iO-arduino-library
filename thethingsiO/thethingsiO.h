@@ -1,14 +1,14 @@
 #ifndef THETHINGS_H
 #define THETHINGS_H
 
-#include "TheThingsClient.h"
+#include "thethingsiOClient.h"
 
 #if defined(ethernet_h)
-#include "TheThingsEthernet.h"
+#include "thethingsiOEthernet.h"
 #endif
 
 #if defined(_GSM3SIMPLIFIERFILE_)
-#include "TheThingsGSM.h"
+#include "thethingsiOGSM.h"
 #endif
 
 #endif // THETHINGS_H

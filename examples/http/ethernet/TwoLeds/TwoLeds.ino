@@ -1,6 +1,6 @@
 #include <SPI.h>
 #include <Ethernet.h>
-#include <TheThings.h>
+#include <thethingsiO.h>
 
 #define FIRST_TOKEN "your token here"
 #define SECOND_TOKEN "your token here"
@@ -8,8 +8,8 @@
 const int  first_led = 2;
 const int  second_led = 5;
 
-TheThingsEthernet first_thing(FIRST_TOKEN);
-TheThingsEthernet second_thing(SECOND_TOKEN);
+thethingsiOEthernet first_thing(FIRST_TOKEN);
+thethingsiOEthernet second_thing(SECOND_TOKEN);
 
 void setup() {
     Serial.begin(9600);
@@ -36,7 +36,7 @@ void loop() {
     checkSubscription(second_thing);
 }
 
-void checkThing(TheThingsEthernet &thing, const int led) {
+void checkThing(thethingsiOEthernet &thing, const int led) {
     // Parse new data on the Thing to turn the led on/off
     if (thing.available()) {
         String text = thing.read();
@@ -47,7 +47,7 @@ void checkThing(TheThingsEthernet &thing, const int led) {
     }
 }
 
-void checkSubscription(TheThingsEthernet &thing) {
+void checkSubscription(thethingsiOEthernet &thing) {
     if (!thing.subscribed()) {
         Serial.println("Resubscribe!");
         thing.subscribe();

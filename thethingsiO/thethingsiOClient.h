@@ -1,4 +1,4 @@
-// Copyright (c) 2015 TheThingsClient.iO
+// Copyright (c) 2015 thethingsiOClient.iO
 // This file is licensed under the MIT License
 // http://opensource.org/licenses/MIT
 
@@ -8,10 +8,10 @@
 #include <Arduino.h>
 #include <Client.h>
 
-class TheThingsClient {
+class thethingsiOClient {
 public:
-    TheThingsClient(Client *, Client *);
-    TheThingsClient(Client *, Client *, String &);
+    thethingsiOClient(Client *, Client *);
+    thethingsiOClient(Client *, Client *, String &);
 
     // Create a new thing passing it's existing token as an argument or leave
     // it empty to activate it later using "activate" function.
@@ -46,7 +46,7 @@ public:
     String read(String);
     String read(String, int);
 
-    void subscribe();
+    void subscribe(int const keep_alive = 20000);
     bool subscribed();
     int available();
     String read();

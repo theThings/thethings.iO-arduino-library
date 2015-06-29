@@ -8,7 +8,7 @@ Clone this repository and copy or link the TheTings folder in your arduino libra
 
 ## Library Reference
 
-If you want to use the Ethernet client you should `#include <SPI.h>` `#include <Ethernet.h>` before including this library. If you want to use the GSM client do `#include <GSM.h>`. Then include this library with `#include <TheThings.h>`. Before using any client from this library, the Ethernet or GSM shield should be initialized.
+If you want to use the Ethernet client you should `#include <SPI.h>` `#include <Ethernet.h>` before including this library. If you want to use the GSM client do `#include <GSM.h>`. Then include this library with `#include <thethingsiO.h>`. Before using any client from this library, the Ethernet or GSM shield should be initialized.
 
 ```Arduino
 // Initialize Ethernet
@@ -25,11 +25,11 @@ Serial.println("Arduino connected to network");
 ```
 
 ```Arduino
-TheThingsEthernet();
-TheThingsGSM();
+thethingsiOEthernet();
+thethingsiOGSM();
 
-TheThingsEthernet(String token);
-TheThingsGSM(String token);
+thethingsiOEthernet(String token);
+thethingsiOGSM(String token);
 ```
 
 Create a new client. The first form is used to activate new things with the `activate(String)` method. The second form sets the token for an already activated thing.

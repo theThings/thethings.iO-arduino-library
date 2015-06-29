@@ -1,10 +1,10 @@
 #include <SPI.h>
 #include <Ethernet.h>
-#include <TheThings.h>
+#include <thethingsiO.h>
 
 #define TOKEN "your token here"
 
-TheThingsEthernet thing(TOKEN);
+thethingsiOEthernet thing(TOKEN);
 
 void setup() {
     // Start Serial for debugging on the Serial Monitor

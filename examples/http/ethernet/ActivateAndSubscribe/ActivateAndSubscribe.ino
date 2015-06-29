@@ -2,11 +2,11 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
-#include <TheThings.h>
+#include <thethingsiO.h>
 
 #define ACTIVATION_CODE "your activation code here"
 
-TheThingsEthernet thing;
+thethingsiOEthernet thing;
 const int led = 3;
 
 void setup() {

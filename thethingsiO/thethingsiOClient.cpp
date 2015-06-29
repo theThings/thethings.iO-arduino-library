@@ -1,24 +1,24 @@
-#include "TheThingsClient.h"
+#include "thethingsiOClient.h"
 
 #define TOKEN_SIZE 43
 
-byte TheThingsClient::server[] = {77, 73, 82, 243};
+byte thethingsiOClient::server[] = {77, 73, 82, 243};
 
-TheThingsClient::TheThingsClient(Client *regular, Client *subscription) {
+thethingsiOClient::thethingsiOClient(Client *regular, Client *subscription) {
     this->regular_client = regular;
     this->subscription_client = subscription;
     this->token = "";
     this->data = "";
 }
 
-TheThingsClient::TheThingsClient(Client *regular, Client *subscription, String &token) {
+thethingsiOClient::thethingsiOClient(Client *regular, Client *subscription, String &token) {
     this->regular_client = regular;
     this->subscription_client = subscription;
     this->token = token;
     this->data = "";
 }
 
-String TheThingsClient::activate(String activationCode) {
+String thethingsiOClient::activate(String activationCode) {
     token = "";
     String body = "";
     String find_token = "thingToken\":\"";
@@ -38,19 +38,19 @@ String TheThingsClient::activate(String activationCode) {
     return token;
 }
 
-String TheThingsClient::getToken() {
+String thethingsiOClient::getToken() {
     return token;
 }
 
-void TheThingsClient::addValue(String key, String value) {
+void thethingsiOClient::addValue(String key, String value) {
     data.concat("{\"key\":\"" + key + "\",\"value\":\"" + value + "\"}");
 }
 
-void TheThingsClient::addValue(String key, double value) {
+void thethingsiOClient::addValue(String key, double value) {
     addValue(key, String(value));
 }
 
-String TheThingsClient::send() {
+String thethingsiOClient::send() {
     String received = "";
     if (POST(regular_client, "/v2/things/" + token, "{\"values\":[" + data + "]}")) {
         data = "";
@@ -63,7 +63,7 @@ String TheThingsClient::send() {
     return received;
 }
 
-bool TheThingsClient::POST(Client *client, String url, String &data) {
+bool thethingsiOClient::POST(Client *client, String url, String &data) {
     client->flush();
     client->stop();
     if (client->connected() || client->connect(server, 80)) {
@@ -79,7 +79,7 @@ bool TheThingsClient::POST(Client *client, String url, String &data) {
     return client->connected();
 }
 
-bool TheThingsClient::GET(Client *client, String &data) {
+bool thethingsiOClient::GET(Client *client, String &data) {
     client->flush();
     if (client->connected() || client->connect(server, 80)) {
         client->print("GET " + data + " HTTP/1.1\n");
@@ -89,11 +89,11 @@ bool TheThingsClient::GET(Client *client, String &data) {
     return client->connected();
 }
 
-String TheThingsClient::read(String key) {
+String thethingsiOClient::read(String key) {
     return read(key, 10);
 }
 
-String TheThingsClient::read(String key, int limit) {
+String thethingsiOClient::read(String key, int limit) {
     String received = "";
     if (regular_client->connect(server, 80)) {
         GET(regular_client, "/v2/things/" + token + "/resources/" + key + "?limit=" + String(limit));
@@ -105,20 +105,20 @@ String TheThingsClient::read(String key, int limit) {
     return received;
 }
 
-void TheThingsClient::subscribe() {
+void thethingsiOClient::subscribe(int const keep_alive) {
     subscription_client->stop();
-    GET(subscription_client, "/v2/things/" + token);
+    GET(subscription_client, "/v2/things/" + token + "?keepAlive=" + String(keep_alive));
 }
 
-bool TheThingsClient::subscribed() {
+bool thethingsiOClient::subscribed() {
     return subscription_client->connected();
 }
 
-int TheThingsClient::available() {
+int thethingsiOClient::available() {
     return subscription_client->available();
 }
 
-String TheThingsClient::read() {
+String thethingsiOClient::read() {
     String received = "";
     if (subscription_client->connected()) {
         while (subscription_client->available())
