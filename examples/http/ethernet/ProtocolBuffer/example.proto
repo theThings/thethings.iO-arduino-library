@@ -1,0 +1,70 @@
+
+message Measurement{
+  optional sint32 timestamp = 1;
+  optional sint32 fs = 2;
+  optional sint32 fc = 3;
+  optional sint32 VoidedVolume = 4;
+  optional sint32 MaxFlowRate = 5;
+  optional sint32 AvgFlowRate = 6;
+  optional sint32 TVoiding = 7;
+  optional sint32 TFlow = 8;
+  optional sint32 TToMaxFlow = 9;
+  optional bool ValidMeasurement = 10;
+  repeated sint32 Graph = 11;
+}
+
+message Value {
+  optional sint32 timestamp = 1;
+  oneof resource {
+      Measurement measurement = 2;
+      sint32 dumpvalue = 3;
+  }
+}
+
+message Write {//how we should call this???
+  enum Action{
+    WRITE = 1;
+    SUBSCRIBE = 2;
+    ACTIVATE = 3;
+    LINK_ID = 4;
+    TIME = 5;
+  }
+  repeated Value values = 1;
+  optional string activation_code = 2;//could be bytes
+  optional string link_id = 3;//could be bytes
+//  optional string thing_token = 4;//this is ignored in http
+//  optional Action action = 5;//this is ignored in http
+//  optional ReadQuery query = 6;
+}
+
+message Error {
+  enum ErrorCode {
+    THING_NOT_FOUND_ERROR = 1;
+    ACTIVATION_ERROR = 2;
+    PROTOBUF_PARSE_ERROR = 3;
+//    UNRECOGNISED_ACTION = 4;
+  }
+  optional ErrorCode code = 1;
+  optional string error_message = 2;
+}
+
+message Result {
+  enum StatusCode {
+    SUCCESS = 1;
+    ERROR = 2;
+//    END_STREAM = 3;//only if internal api ends connection and we are over udp
+  }
+  optional StatusCode status = 1;
+  repeated Value values = 2;
+  optional string thing_token = 3;//could be bytes
+  optional sint32 server_time = 4;
+  optional Error error = 5;
+}
+
+//we won't implement this in the first iteration
+// message ReadQuery {
+//   optional string resource = 1;
+//   optional sint32 limit = 2;
+//   optional sint32 start_date = 3;
+//   optional sint32 end_date = 4;
+// }
