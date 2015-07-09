@@ -27,11 +27,11 @@ public:
 
     // key: string
     // value: string
-    void addValue(String, String);
+    void addValue(String, String, double lon = 999, double lat = 999);
 
     // key: string
     // value: number
-    void addValue(String, double);
+    void addValue(String, double, double lon = 999, double lat = 999);
 
     // Actually send the values to theThings.iO. See function "addValue".
     String send();
@@ -61,6 +61,8 @@ protected:
     // Private functions
     bool POST(Client *, String, String &);
     bool GET(Client *, String &);
+    bool isGeo(double, double);
+    String geoJSON(double, double);
 };
 
 #endif // TEHTHINGSCLIENT_H

@@ -42,12 +42,28 @@ String thethingsiOClient::getToken() {
     return token;
 }
 
-void thethingsiOClient::addValue(String key, String value) {
-    data.concat("{\"key\":\"" + key + "\",\"value\":\"" + value + "\"}");
+bool thethingsiOClient::isGeo(double lon, double lat) {
+    return lon >= -180  && lon <= 180 && lat >= -90 && lat >= 90;
 }
 
-void thethingsiOClient::addValue(String key, double value) {
-    addValue(key, String(value));
+String thethingsiOClient::geoJSON(double lon, double lat) {
+    return data.concat("\"geo\":{\"lat\":" + String(lat, 7) + ",\"long\":" + String(lon, 7) + "}");
+}
+
+void thethingsiOClient::addValue(String key, String value, double lon, double lat) {
+    data.concat(
+                "{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +
+                (isGeo(lon, lat) ? data.concat("," + geoJSON(lon, lat) : "")) +
+                "}"
+            );
+}
+
+void thethingsiOClient::addValue(String key, double value, double lon, double lat) {
+    data.concat(
+                "{\"key\":\"" + key + "\",\"value\":" + value +
+                (isGeo(lon, lat) ? data.concat("," + geoJSON(lon, lat) : "")) +
+                "}"
+            );
 }
 
 String thethingsiOClient::send() {
