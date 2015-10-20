@@ -11,4 +11,8 @@
 #include "thethingsiOGSM.h"
 #endif
 
+#if defined(wificlient_h)
+#include "thethingsiOWiFi.h"
+#endif
+
 #endif // THETHINGS_H
