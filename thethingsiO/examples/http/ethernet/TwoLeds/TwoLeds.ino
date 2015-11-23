@@ -42,8 +42,10 @@ void checkThing(thethingsiOEthernet &thing, const int led) {
         String text = thing.read();
         text.replace(" ", "");
         text.toUpperCase();
-        if (text.indexOf("[{\"KEY\":\"LED\",\"VALUE\":\"ON\"}]") >= 0) digitalWrite(led, HIGH);
-        else if (text.indexOf("[{\"KEY\":\"LED\",\"VALUE\":\"OFF\"}]") >= 0) digitalWrite(led, LOW);
+        if (text.indexOf("\"KEY\":\"LED\"") >= 0) {
+            if (text.indexOf("\"VALUE\":\"ON\"") >= 0) digitalWrite(led, HIGH);
+            else if (text.indexOf("\"VALUE\":\"OFF\"") >= 0) digitalWrite(led, LOW);
+        }
     }
 }
 

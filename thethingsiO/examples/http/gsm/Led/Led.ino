@@ -40,8 +40,10 @@ void checkLed(int const led) {
         Serial.println(text);
         text.replace(" ", "");
         text.toUpperCase();
-        if (text.indexOf("[{\"KEY\":\"LED\",\"VALUE\":\"ON\"}]") >= 0) candle(led, MAX_LIGHT_TIME);
-        else if (text.indexOf("[{\"KEY\":\"LED\",\"VALUE\":\"OFF\"}]") >= 0) digitalWrite(led, LOW);
+        if (text.indexOf("\"KEY\":\"LED\"") >= 0) {
+            if (text.indexOf("\"VALUE\":\"ON\"") >= 0) candle(led, MAX_LIGHT_TIME);
+            else if (text.indexOf("\"VALUE\":\"OFF\"") >= 0) digitalWrite(led, LOW);
+        }
     }
 }
 
