@@ -45,7 +45,11 @@ public:
     // startDate and endDate format: YYYYMMDDHHmmss
     String read(String);
     String read(String, int);
-
+    
+    //Costum Function to Read Time from Server
+    String readTime(String);
+    ////
+		
     void subscribe(int const keep_alive = 20000);
     bool subscribed();
     int available();
@@ -56,7 +60,8 @@ protected:
     String data;
     Client *regular_client;
     Client *subscription_client;
-    static byte server[];
+    //static byte server[];
+    static char server[];
 
     // Private functions
     bool POST(Client *, String, String &);

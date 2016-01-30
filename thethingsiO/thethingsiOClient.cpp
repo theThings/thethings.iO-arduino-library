@@ -2,8 +2,9 @@
 
 #define TOKEN_SIZE 43
 
-byte thethingsiOClient::server[] = {77, 73, 82, 243};
-
+//byte thethingsiOClient::server[] = {77, 73, 82, 243};
+char thethingsiOClient::server[] = "api.thethings.io";
+	
 thethingsiOClient::thethingsiOClient(Client *regular, Client *subscription) {
     this->regular_client = regular;
     this->subscription_client = subscription;
@@ -118,6 +119,32 @@ String thethingsiOClient::read(String key, int limit) {
             received.concat((char)regular_client->read());
         regular_client->stop();
     }
+    return received;
+}
+
+//Costum Function To Retrieve Date Time From Server
+String thethingsiOClient::readTime(String format) {
+	int start;   
+	int end; 
+	String received = "";
+
+    if (regular_client->connect(server, 80)) {
+        GET(regular_client, "/v2/utils/date?thingToken=" + token + "&format=" + format);
+        delay(1000);
+        while (regular_client->available())
+            received.concat((char)regular_client->read());
+        regular_client->stop();
+    }
+
+//Retrieve the Time from Response
+	String dummy = "value";
+	dummy.concat('"');
+	dummy.concat(':');
+	start = received.lastIndexOf(dummy) + dummy.length();
+	end	  = received.lastIndexOf("]") - 1;
+	received = received.substring(start,end);
+
+//
     return received;
 }
 
