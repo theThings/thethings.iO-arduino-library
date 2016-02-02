@@ -20,6 +20,9 @@ public:
     // Return thing's token
     String getToken();
 
+    // Set the thing token
+    void setToken(String &);
+
     // To write a variable into the theThings.iO cloud, call this function with
     // the value to write. This function can be called any times to add more
     // variables to be sent. Finally, call the "send" function to actually
