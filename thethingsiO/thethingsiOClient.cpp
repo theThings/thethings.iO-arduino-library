@@ -48,7 +48,7 @@ void thethingsiOClient::setToken(String &token) {
 }
 
 bool thethingsiOClient::isGeo(double lon, double lat) {
-    return lon >= -180  && lon <= 180 && lat >= -90 && lat >= 90;
+    return lon >= -180  && lon <= 180 && lat >= -90 && lat <= 90;
 }
 
 String thethingsiOClient::geoJSON(double lon, double lat) {
