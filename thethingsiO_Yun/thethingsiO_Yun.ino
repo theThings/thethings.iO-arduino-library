@@ -33,10 +33,10 @@ void addValue(String key, int value, double lat, double lon) {
 void addValue(String key, int value) {
   if (firstValue == true) {
     firstValue = false;
-    message.concat("{\"key\":\"" + key + "\",\"value\":" + value+"}");
+    message.concat("{\"key\":\"" + key + "\",\"value\":\"" + value+"\"}");
   }
   else {
-    message.concat(",{\"key\":\"" + key + "\",\"value\":" + value+"}");
+    message.concat(",{\"key\":\"" + key + "\",\"value\":\"" + value+"\"}");
   }
 }
 
