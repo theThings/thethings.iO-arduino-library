@@ -23,10 +23,10 @@ String geoJSON(double lon, double lat) {
 void addValue(String key, int value, double lat, double lon) {
   if (firstValue == true) {
     firstValue = false;
-    message.concat("{\"key\":\"" + key + "\",\"value\":" + value +(isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "")+"}");
+    message.concat("{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +(isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "")+"}");
   }
   else {
-    message.concat(",{\"key\":\"" + key + "\",\"value\":" + value +(isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +"}");
+    message.concat(",{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +(isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +"}");
   }
 }
 
