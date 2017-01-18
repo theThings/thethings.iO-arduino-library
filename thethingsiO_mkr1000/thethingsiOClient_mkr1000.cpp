@@ -3,7 +3,7 @@
 #define TOKEN_SIZE 43
 
 //byte thethingsiOClient::server[] = {77, 73, 82, 243};
-char thethingsiOClient::server[] = "api.thethings.io";
+char thethingsiOClient::server[] = "api.devices.thethings.io";
 	
 thethingsiOClient::thethingsiOClient(Client *regular, Client *subscription) {
     this->regular_client = regular;
@@ -89,7 +89,7 @@ bool thethingsiOClient::POST(Client *client, String url, String &data) {
     client->stop();
     if (client->connected() || client->connect(server, 80)) {
         client->print("POST " + url + " HTTP/1.1\n");
-        client->print("Host: api.thethings.io\n");
+        client->print("Host: api.devices.thethings.io\n");
         client->print("Connection: close\n");
         client->print("Content-Type: application/json\n");
         client->print("Content-Length: ");
@@ -104,7 +104,7 @@ bool thethingsiOClient::GET(Client *client, String &data) {
     client->flush();
     if (client->connected() || client->connect(server, 80)) {
         client->print("GET " + data + " HTTP/1.1\n");
-        client->print("Host: api.thethings.io\n");
+        client->print("Host: api.devices.thethings.io\n");
         client->print("Accept: application/json\n\n");
     }
     return client->connected();
