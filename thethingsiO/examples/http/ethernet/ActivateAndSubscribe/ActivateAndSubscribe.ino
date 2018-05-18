@@ -5,6 +5,7 @@
 #include <thethingsiO.h>
 
 #define ACTIVATION_CODE "your activation code here"
+#define PRODUCT_ID "your product id"
 
 thethingsiOEthernet thing;
 const int led = 3;
@@ -19,7 +20,7 @@ void setup() {
     startEthernet();
 
     // Activate the new Thing and print the Token
-    thing.activate(ACTIVATION_CODE);
+    thing.activate(PRODUCT_ID,ACTIVATION_CODE);
     Serial.println("token: " + thing.getToken());
 
     // Subscribe to new messages on the activated Thing

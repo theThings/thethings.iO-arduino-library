@@ -20,13 +20,13 @@ thethingsiOClient::thethingsiOClient(Client *regular, Client *subscription, Stri
     this->data = "";
 }
 
-String thethingsiOClient::activate(String activationCode) {
+String thethingsiOClient::activate(String productId, String activationCode) {
     token = "";
     String body = "";
     String find_token = "thingToken\":\"";
     int start;
     char c;
-    if (POST(regular_client, "/v2/things/", "{ \"activationCode\":\"" + activationCode + "\"}")) {
+    if (POST(regular_client, "/v2/things/", "{\"activationCode\":\"" + activationCode + "\",\"productId\":\"" + productId + "\"}")) {
         delay(1000);
         while (regular_client->available() && (c = (char)regular_client->read()) != '{');
         if (c == '{') {

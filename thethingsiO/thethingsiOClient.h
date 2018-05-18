@@ -15,7 +15,7 @@ public:
 
     // Create a new thing passing it's existing token as an argument or leave
     // it empty to activate it later using "activate" function.
-    String activate(String);
+    String activate(String productId, String activationCode);
 
     // Return thing's token
     String getToken();
