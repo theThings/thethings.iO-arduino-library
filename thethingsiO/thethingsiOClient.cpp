@@ -4,7 +4,8 @@
 
 //byte thethingsiOClient::server[] = {77, 73, 82, 243};
 char thethingsiOClient::server[] = "api.devices.thethings.io";
-	
+bool  firstValue = true;
+
 thethingsiOClient::thethingsiOClient(Client *regular, Client *subscription) {
     this->regular_client = regular;
     this->subscription_client = subscription;
@@ -56,19 +57,41 @@ String thethingsiOClient::geoJSON(double lon, double lat) {
 }
 
 void thethingsiOClient::addValue(String key, String value, double lon, double lat) {
-    data.concat(
-                "{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +
-                (isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +
-                "}"
-            );
+	if (firstValue == true) {
+		firstValue = false;
+	  data.concat(
+	              "{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +
+	              (isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +
+	              "}"
+	          );
+	}
+	else
+	{
+		data.concat(
+	              ",{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +
+	              (isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +
+	              "}"
+	          );
+	}
 }
 
 void thethingsiOClient::addValue(String key, double value, double lon, double lat) {
-    data.concat(
-                "{\"key\":\"" + key + "\",\"value\":" + value +
-                (isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +
-                "}"
-            );
+	if (firstValue == true) {
+		firstValue = false;
+	  data.concat(
+	              "{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +
+	              (isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +
+	              "}"
+	          );
+	}
+	else
+	{
+		data.concat(
+	              ",{\"key\":\"" + key + "\",\"value\":\"" + value + "\"" +
+	              (isGeo(lon, lat) ? "," + geoJSON(lon, lat) : "") +
+	              "}"
+	          );
+	}
 }
 
 String thethingsiOClient::send() {

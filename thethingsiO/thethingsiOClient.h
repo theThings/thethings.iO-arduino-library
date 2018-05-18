@@ -30,11 +30,11 @@ public:
 
     // key: string
     // value: string
-    void addValue(String, String, double lon = 999, double lat = 999);
+    void addValue(String key, String value, double lon = 999, double lat = 999);
 
     // key: string
     // value: number
-    void addValue(String, double, double lon = 999, double lat = 999);
+    void addValue(String key, double value, double lon = 999, double lat = 999);
 
     // Actually send the values to theThings.iO. See function "addValue".
     String send();
